@@ -1,0 +1,65 @@
+<div class="container">
+  <div class = "row">
+    <div class = "col-lg-2">
+    </div>
+    <div class = "col-lg-8">
+      <h1>新規投稿</h1>
+      <%= form_for(@blog) do |f| %>
+        <% if @blog.errors.any? %>
+          <%= @blog.errors.count %>件のエラーがあります
+          <% @blog.errors.full_messages.each do |message| %>
+            <%= message %>
+          <% end %>
+        <% end %>
+        <br><%= f.label :タイトル %>
+
+        <%= f.text_field :title, class:"form-control",placeholder: "題名"%>
+
+
+        <%= f.label :本文 %>
+        <%= f.text_area :body, class:"form-control input-lg", rows:"13", placeholder: "本文" %>
+        
+
+        <%= f.label :start_time %>
+        <%= f.datetime_select :start_time %>
+
+        <br><%= f.label :tag %>
+        <%= f.text_field :tag_list, value: @blog.tag_list.join(','), class:"form-control", placeholder: "例）旅、休日、温泉"  %>
+
+        <br><%= f.label :場所 %>
+        <%= f.text_field :address, class:"form-control", placeholder: "場所" %>
+
+        <br><label>公開ステータス</label>
+        <%= f.select :status, [["非公開", "draft"],["公開", "published"]], id: "status" %>
+
+        <h4>画像</h4>
+        <%= f.attachment_field :image, id: :user_img %>
+          <% if @blog.image.present? %>
+            <%= image_tag @blog.image, id: :img_prev %>
+          <% else %>
+            <%= image_tag "sample.png", id: :img_prev %>
+          <% end %>
+
+
+          <script type="text/javascript">
+            $(function() {
+              function readURL(input) {
+                  if (input.files && input.files[0]) {
+                  var reader = new FileReader();
+                  reader.onload = function (e) {
+              $('#img_prev').attr('src', e.target.result);
+                  }
+                  reader.readAsDataURL(input.files[0]);
+                  }
+              }
+              $("#user_img").change(function(){
+                readURL(this);
+              });
+            });
+          </script>
+          <br><%= f.submit '投稿',class:"btn btn-primary form-control" %>
+          
+      <% end %>
+    </div>
+  </div>
+</div>

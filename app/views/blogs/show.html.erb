@@ -1,0 +1,52 @@
+<div class="container">
+  <div class = "row">
+    <div class = "col-lg-2">
+    </div>
+    <div class = "col-lg-8">
+      <h3><div class="border"><%= @blog.title %></div></h3>
+      <br><h5><div class="tbody"><%= @blog.body %></div></h5>
+      <%= attachment_image_tag @blog, :image, size: "700x400", fallback: "sample.png" %>
+      <script>
+        function initMap() {
+          var test ={lat: <%= @blog.latitude %>, lng: <%= @blog.longitude %>};
+          var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15, 
+                    center: test
+                    });x
+          var transitLayer = new google.maps.TransitLayer();
+          transitLayer.setMap(map);
+
+          var contentString = '住所：<%= @blog.address %>';
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+
+          var marker = new google.maps.Marker({
+                        position:test,
+                        map: map,
+                        title: contentString
+                      });
+
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+        }
+      </script>
+
+
+      <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyByyWf7N-cyT5NtcdHAlhYcIafd1UJyJrU&callback=initMap">
+      </script>
+      <div id="map"></div>
+      <style>
+      #map{
+        height: 400px;
+      }
+      </style>
+
+      <br><%= link_to "Edit",edit_blog_path(@blog.id),class:"btn btn-success" %>
+      <%= link_to "Destroy", blog_path(@blog.id),class:"btn btn-danger" ,method: :delete, "data-confirm" => "Are you sure?" %>
+      <%= @blog.start_time.strftime("%Y-%m-%d %H:%M") %>
+    </div>
+  </div>
+</div>

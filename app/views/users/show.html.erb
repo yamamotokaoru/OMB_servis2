@@ -1,0 +1,52 @@
+<div class="container">
+  <div class = "row">
+    <div class = "col-lg-2">
+    </div>
+    <div class = "col-lg-8">
+      <% if flash[:notice] %>
+        <div class="flash">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <%= month_calendar events: @blogs do |date, blogs| %>
+        <%= date.day %>
+      
+        <% blogs.each do |blog| %>
+          <div>
+            <%= link_to blog.title, blog %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <h1>投稿一覧</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <td>title</td>
+              <td>date</td>
+              <td>tag</td>
+              <td>status</td>
+            </tr>
+          <thead>
+          <% @blogs.each do |blog| %>
+            <tbody>
+              <tr>
+                <td><%= link_to blog.title,blog_path(blog.id) %></td>
+                <td><%= blog.start_time.strftime("%Y-%m-%d %H:%M") %></td>
+                <td><% blog.tag_list.each do |tag| %>
+                      <%= link_to tag, blogs_path(tag_name: tag), class: "badge badge-secondary"%>
+                    <% end %></td>
+                <td><% if blog.status == "draft" %>
+                      非公開
+                    <% else %>
+                      公開
+                    <% end %></td>
+              </tr>
+            </tbody>
+          <% end %>
+          <%= paginate @blogs %>
+        </table>
+          
+    </div>
+  </div>
+</div>
