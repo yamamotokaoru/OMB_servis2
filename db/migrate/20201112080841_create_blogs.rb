@@ -2,7 +2,6 @@ class CreateBlogs < ActiveRecord::Migration[5.2]
   def change
     create_table :blogs do |t|
       t.string "image_id"
-      t.integer "user_id"
       t.text "title"
       t.text "body"
       t.datetime "created_at", precision: 6, null: false
