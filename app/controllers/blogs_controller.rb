@@ -19,7 +19,7 @@ def index
 end
 def show
   @blog = Blog.find(params[:id])
-  if (@blog.published? || @blog.user_id= current_user.id && @blog.draft?)
+  if (@blog.published? || @blog.user_id = current_user.id && @blog.draft?)
     render "show"
   else
     flash[:alert] = "非公開です "
