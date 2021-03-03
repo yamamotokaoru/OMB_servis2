@@ -36,11 +36,7 @@
                 <td><% blog.tag_list.each do |tag| %>
                       <%= link_to tag, blogs_path(tag_name: tag), class: "badge badge-secondary"%>
                     <% end %></td>
-                <td><% if blog.status == "draft" %>
-                      非公開
-                    <% else %>
-                      公開
-                    <% end %></td>
+                <td><%= blog.status_text %></td>
               </tr>
             </tbody>
           <% end %>

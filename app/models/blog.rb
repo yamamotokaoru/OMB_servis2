@@ -11,4 +11,13 @@ class Blog < ApplicationRecord
 
   validates :title, presence: true
   validates :body, presence: true
+  def status_text
+    if blog.status == "draft"
+      "非公開"
+    else
+      "公開"
+    end
+  end
+
+  
 end
