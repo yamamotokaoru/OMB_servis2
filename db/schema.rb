@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_102050) do
+ActiveRecord::Schema.define(version: 2021_03_03_005521) do
 
   create_table "blogs", force: :cascade do |t|
     t.string "image_id"
